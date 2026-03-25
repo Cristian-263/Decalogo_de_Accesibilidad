@@ -7,13 +7,13 @@ const lineTargetRadius = 95;
 
 // Mapeo SIMÉTRICO absoluto: Nodos 6 y 7 ahora tienen anclajes 'top-left' y 'top-right'
 const nodeConfig = {
-    0:   { left: 44, top: 16, anchor: 'bottom',    targetDeg: -108 },
-    36:  { left: 56, top: 16, anchor: 'bottom',    targetDeg: -72 }, 
+    0:   { left: 43, top: 16, anchor: 'bottom-right', targetDeg: -108 },
+    36:  { left: 57, top: 16, anchor: 'bottom-left',  targetDeg: -72 }, 
     72:  { left: 65, top: 30, anchor: 'left',      targetDeg: -36 }, 
     108: { left: 70, top: 50, anchor: 'left',      targetDeg: 0 },    
     144: { left: 65, top: 70, anchor: 'left',      targetDeg: 36 },   
-    180: { left: 56, top: 84, anchor: 'top-left',  targetDeg: 72 },   // 6. Uso adecuado (Esquina izq)
-    216: { left: 44, top: 84, anchor: 'top-right', targetDeg: 108 },  // 7. Texto alternativo (Esquina der)
+    180: { left: 57, top: 84, anchor: 'top-left',  targetDeg: 72 }, 
+    216: { left: 43, top: 84, anchor: 'top-right', targetDeg: 108 }, 
     252: { left: 35, top: 70, anchor: 'right',     targetDeg: 144 },  
     288: { left: 30, top: 50, anchor: 'right',     targetDeg: 180 },  
     324: { left: 35, top: 30, anchor: 'right',     targetDeg: 216 }   
@@ -91,13 +91,17 @@ function drawLines() {
             anchorX = boxRect.right - diagramRect.left;
             anchorY = boxRect.top + boxRect.height / 2 - diagramRect.top;
         } else if (config.anchor === 'top-left') {
-            // Ajustado 25px desde la izquierda para coincidir con el CSS
             anchorX = boxRect.left + 25 - diagramRect.left;
             anchorY = boxRect.top - diagramRect.top;
         } else if (config.anchor === 'top-right') {
-            // Ajustado 25px desde la derecha para coincidir con el CSS
             anchorX = boxRect.right - 25 - diagramRect.left;
             anchorY = boxRect.top - diagramRect.top;
+        } else if (config.anchor === 'bottom-left') {
+            anchorX = boxRect.left + 25 - diagramRect.left;
+            anchorY = boxRect.bottom - diagramRect.top;
+        } else if (config.anchor === 'bottom-right') {
+            anchorX = boxRect.right - 25 - diagramRect.left;
+            anchorY = boxRect.bottom - diagramRect.top;
         }
 
         // Hacia dónde apunta en el centro
@@ -111,7 +115,7 @@ function drawLines() {
             const midX = anchorX + (targetX - anchorX) / 2;
             pathData = `M ${anchorX} ${anchorY} L ${midX} ${anchorY} L ${midX} ${targetY} L ${targetX} ${targetY}`;
         } else {
-            // Aplica para 'top', 'bottom', 'top-left' y 'top-right'
+            // Aplica para 'top', 'bottom', 'top-left', 'top-right', 'bottom-left', 'bottom-right'
             const midY = anchorY + (targetY - anchorY) / 2;
             pathData = `M ${anchorX} ${anchorY} L ${anchorX} ${midY} L ${targetX} ${midY} L ${targetX} ${targetY}`;
         }
@@ -152,3 +156,139 @@ function init() {
 
 window.addEventListener('load', init);
 window.addEventListener('resize', init);
+
+const popupData = [
+    {
+        numero: 'Punto 1',
+        titulo: 'Estructura lógica y jerárquica',
+        items: [
+            'Uso de encabezados bien ordenados.',
+            'Cada sección tiene un título significativo.'
+        ]
+    },
+    {
+        numero: 'Punto 2',
+        titulo: 'Resumen contextual',
+        items: [
+            'Incluye un resumen contextual de lo que versa el material.'
+        ]
+    },
+    {
+        numero: 'Punto 3',
+        titulo: 'Lenguaje claro y comprensible',
+        items: [
+            'Frases cortas.',
+            'Párrafos breves.',
+            'Utiliza un lenguaje comprensible, claro y sencillo.',
+            'Explica los tecnicismos la primera vez que aparecen.'
+        ]
+    },
+    {
+        numero: 'Punto 4',
+        titulo: 'Listas y organización del contenido',
+        items: [
+            'Utiliza listas para elementos múltiples.',
+            'Divide la información compleja en bloques.',
+            'Usa un glosario de términos.'
+        ]
+    },
+    {
+        numero: 'Punto 5',
+        titulo: 'Tipografía y formato',
+        items: [
+            'Usa tamaño mínimo 12–14 pt.',
+            'Evita mayúsculas prolongadas.',
+            'Evita cursivas largas (dificultan la lectura).',
+            'Usa negrita para resaltar, pero con moderación.',
+            'No justifiques el texto a ambos lados (crea ríos de texto).'
+        ]
+    },
+    {
+        numero: 'Punto 6',
+        titulo: 'Uso adecuado del color',
+        items: [
+            'No uses solo el color para transmitir información.',
+            'No dependas únicamente del color y el estilo para resaltar información.'
+        ]
+    },
+    {
+        numero: 'Punto 7',
+        titulo: 'Texto alternativo en las imágenes',
+        items: [
+            'Proporciona un texto alternativo (ALT) significativo.',
+            'Explica el propósito, no la estética.',
+            'En gráficos complejos, describe la información clave.'
+        ]
+    },
+    {
+        numero: 'Punto 8',
+        titulo: 'Subtítulos en los vídeos',
+        items: [
+            'Incluye subtítulos en todos los vídeos.'
+        ]
+    },
+    {
+        numero: 'Punto 9',
+        titulo: 'Narración en los vídeos',
+        items: [
+            'Describe de manera auditiva lo que aparece en la imagen, diapositiva o vídeo.'
+        ]
+    },
+    {
+        numero: 'Punto 10',
+        titulo: 'Enlaces accesibles',
+        items: [
+            'Usa texto descriptivo: "Descargar informe anual (PDF)".',
+            'Evita "haz clic aquí", "más info", "ver".'
+        ]
+    }
+];
+
+const overlay    = document.getElementById('popup-overlay');
+const popupBox   = document.getElementById('popup-content');
+const closeBtn   = document.getElementById('popup-close');
+const elNumero   = document.getElementById('popup-number');
+const elTitulo   = document.getElementById('popup-title');
+const elLista    = document.getElementById('popup-list');
+
+function openPopup(index) {
+    const data = popupData[index];
+    elNumero.textContent  = data.numero;
+    elTitulo.textContent  = data.titulo;
+    elLista.innerHTML = data.items.map(item => `<li>${item}</li>`).join('');
+
+    // Forzar reinicio de AOS para la animación fade
+    popupBox.removeAttribute('data-aos-id');
+    popupBox.classList.remove('aos-animate');
+
+    overlay.classList.add('active');
+
+    // Disparar AOS fade manualmente
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            popupBox.classList.add('aos-animate');
+        });
+    });
+}
+
+function closePopup() {
+    popupBox.classList.remove('aos-animate');
+    setTimeout(() => overlay.classList.remove('active'), 350);
+}
+
+closeBtn.addEventListener('click', closePopup);
+overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closePopup();
+});
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePopup();
+});
+
+// Asignar clicks a los nodos según su orden (0-9)
+window.addEventListener('load', () => {
+    const nodos = document.querySelectorAll('.nodo-box');
+    const angles = [0, 36, 72, 108, 144, 180, 216, 252, 288, 324];
+    nodos.forEach((box, i) => {
+        box.addEventListener('click', () => openPopup(i));
+    });
+});
