@@ -257,13 +257,11 @@ function openPopup(index) {
     elTitulo.textContent  = data.titulo;
     elLista.innerHTML = data.items.map(item => `<li>${item}</li>`).join('');
 
-    // Forzar reinicio de AOS para la animación fade
     popupBox.removeAttribute('data-aos-id');
     popupBox.classList.remove('aos-animate');
 
     overlay.classList.add('active');
 
-    // Disparar AOS fade manualmente
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
             popupBox.classList.add('aos-animate');
