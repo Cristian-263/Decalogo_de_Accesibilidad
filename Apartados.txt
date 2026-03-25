@@ -1,0 +1,33 @@
+Decálogo accesibilidad
+ 
+Estructura lógica y jerárquica:
+·	Uso de encabezados bien ordenados.
+·	Cada sección tiene un título significativo.
+Incluye un resumen contextual de lo que versa el material.
+Utiliza un lenguaje claro y comprensible:
+·	Frases cortas.
+·	Párrafos breves.
+·	Utiliza un lenguaje comprensible, claro y sencillo.
+·	Explica los tecnicismos explícalos la primera vez.
+Listas y organización del contenido:
+·	Utiliza listas para elementos múltiples.
+·	Divide la información compleja en bloques.
+·	Usa un glosario de términos.
+Tipografía y formato:
+·	Usa tamaño mínimo 12–14 pt.
+·	Evita mayúsculas prolongadas.
+·	Evita cursivas largas (dificultan la lectura).
+·	Usa negrita para resaltar, pero con moderación.
+·	No justifiques el texto a ambos lados (crea ríos de texto).
+Uso adecuado del color:
+·	No uses solo color para transmitir información (No depender solo del color y el estilo para resaltar información).
+Agregar texto alternativo en las imágenes:
+·	Proporciona un texto alternativo (ALT) significativo.
+·	Explica el propósito, no la estética
+·	En gráficos complejos, describe la información clave.
+Incluir subtítulos en los videos. 
+Incluir una narración en los videos:
+·	Describe de manera auditiva lo que aparece en la imagen/diapositiva/vídeo.
+Enlaces accesibles:
+·	Usa texto descriptivo: “Descargar informe anual (PDF)”
+·	Evita “haz clic aquí”, “más info”, “ver”

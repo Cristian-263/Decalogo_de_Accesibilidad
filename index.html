@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estrategia de Accesibilidad Universal - Nebrija</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="diagram-container" id="diagram">
+
+    <div class="logo-container">
+        <img src="imagenes/LogoNebrija.png" alt="Logo de la Universidad Nebrija" class="logo" width="200" height="70">       
+    </div>
+
+    <h1 class="main-title">ESTRATEGIA DE ACCESIBILIDAD UNIVERSAL</h1>
+
+    <div class="center-hub" id="center">
+      <svg id="svg-center-ring" class="center-ring-svg" viewBox="0 0 200 200"></svg>
+
+      <img src="imagenes/Icono_Accesibilidad.png" alt="Icono de Accesibilidad" class="center-icon ">
+    </div>
+
+    <!-- El lienzo de las líneas -->
+    <svg id="svg-lines" class="connection-lines"></svg>
+
+    <!-- TU NUEVO CONTENEDOR HTML -->
+    <div id="nodes-container">
+        <div class="nodo" style="--angle: 0deg;"><div class="nodo-box">1. Estructura lógica y jerárquica</div></div>
+        <div class="nodo" style="--angle: 36deg;"><div class="nodo-box">2. Resumen contextual</div></div>
+        <div class="nodo" style="--angle: 72deg;"><div class="nodo-box">3. Lenguaje claro y comprensible</div></div>
+        <div class="nodo" style="--angle: 108deg;"><div class="nodo-box">4. Listas y organización del contenido</div></div>
+        <div class="nodo" style="--angle: 144deg;"><div class="nodo-box">5. Tipología y formato</div></div>
+        <div class="nodo" style="--angle: 180deg;"><div class="nodo-box">6. Uso adecuado del color</div></div>
+        <div class="nodo" style="--angle: 216deg;"><div class="nodo-box">7. Texto alternativo en imágenes</div></div>
+        <div class="nodo" style="--angle: 252deg;"><div class="nodo-box">8. Subtítulos en los videos</div></div>
+        <div class="nodo" style="--angle: 288deg;"><div class="nodo-box">9. Narración en los videos</div></div>
+        <div class="nodo" style="--angle: 324deg;"><div class="nodo-box">10. Enlaces accesibles</div></div>
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

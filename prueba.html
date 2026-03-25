@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decálogo de accesibilidad | Universidad Nebrija</title>
+  <meta
+    name="description"
+    content="Decálogo de accesibilidad en una sola página con animación línea por línea."
+  />
+
+  <!-- Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --nebrija-red: #C2002F;
+      --black: #111111;
+      --white: #ffffff;
+      --line: rgba(194, 0, 47, 0.24);
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+      --radius: 26px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      color: var(--black);
+      background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .page::before,
+    .page::after {
+      content: "";
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.12;
+    }
+
+    .page::before {
+      width: 280px;
+      height: 280px;
+      background: var(--nebrija-red);
+      top: -40px;
+      right: -60px;
+    }
+
+    .page::after {
+      width: 220px;
+      height: 220px;
+      background: #000;
+      bottom: -80px;
+      left: -40px;
+    }
+
+    .wrap {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      padding: 26px 0 18px;
+    }
+
+    .hero-top {
+      display: grid;
+      gap: 18px;
+    }
+
+    .logo-top {
+      width: fit-content;
+    }
+
+    .logo-top img {
+      width: clamp(220px, 30vw, 430px);
+      height: auto;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: var(--shadow);
+      border-radius: calc(var(--radius) + 6px);
+      padding: clamp(18px, 3vw, 34px);
+      backdrop-filter: blur(6px);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--nebrija-red);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-weight: 500;
+      font-size: 0.92rem;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+
+    .title-icon {
+      width: clamp(58px, 7vw, 92px);
+      height: clamp(58px, 7vw, 92px);
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 4.7rem);
+      line-height: 0.98;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-wrap: balance;
+    }
+
+    .intro {
+      margin: 0;
+      max-width: 72ch;
+      color: #303030;
+      font-size: clamp(1.5rem, 1.5vw, 1.08rem);
+      line-height: 1.65;
+    }
+
+    .decalogo {
+      padding: 28px 0 50px;
+    }
+
+    .decalogo-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 18px;
+    }
+
+    .item {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: var(--radius);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+      padding: clamp(18px, 3vw, 28px);
+      overflow: hidden;
+      position: relative;
+      transform-origin: center;
+    }
+
+    .item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(194, 0, 47, 0.04), rgba(255, 255, 255, 0) 40%);
+      pointer-events: none;
+    }
+
+    .item-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .num {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: var(--black);
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .track {
+      height: 2px;
+      background: var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .draw {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      background: linear-gradient(90deg, var(--nebrija-red), #ff6684);
+      border-radius: inherit;
+    }
+
+    .text {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.55s ease 0.55s, transform 0.55s ease 0.55s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .item.aos-animate .text {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .item.aos-animate .draw {
+      animation: drawLine 0.75s cubic-bezier(.2,.8,.2,1) 0.12s forwards;
+    }
+
+    .item h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.18rem, 2vw, 1.5rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .item p {
+      margin: 0;
+      color: #303030;
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 75ch;
+    }
+
+    .footer {
+      padding: 4px 0 34px;
+      text-align: center;
+      color: #444;
+      font-size: 0.94rem;
+    }
+
+    @keyframes drawLine {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @media (max-width: 700px) {
+      .title-row {
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .title-icon {
+        width: 52px;
+        height: 52px;
+        margin-top: 2px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .text {
+        opacity: 1;
+        transform: none;
+      }
+
+      .draw {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="wrap hero-top">
+        <div
+          class="logo-top"
+          data-aos="zoom-in"
+          data-aos-duration="850"
+          data-aos-once="true"
+        >
+          <img src="imagenes/LogoNebrija.png" alt="Logotipo de la Universidad Nebrija" />
+        </div>
+
+        <div
+          class="hero-card"
+          data-aos="zoom-in"
+          data-aos-delay="100"
+          data-aos-duration="850"
+          data-aos-once="true"
+        >
+          <p class="eyebrow">Universidad Nebrija</p>
+
+          <div class="title-row">
+            <img
+              class="title-icon"
+              src="imagenes/Icono_Accesibilidad.png"
+              alt="Icono de accesibilidad"
+            />
+            <h1>Decálogo de accesibilidad</h1>
+          </div>
+
+          <p class="intro">
+            Buenas prácticas para crear materiales más claros, legibles y
+            comprensibles. 
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <main class="decalogo">
+      <div class="wrap">
+        <ol class="decalogo-list">
+          <li class="item" data-aos="zoom-in" data-aos-once="true">
+            <div class="item-head">
+              <span class="num">01</span>
+              <div class="track" aria-hidden="true">
+                <span class="draw"></span>
+              </div>
+            </div>
+            <div class="text">
+              <h2>Estructura el contenido con jerarquía clara</h2>
+              <p>
+                Usa títulos y subtítulos en orden lógico para que el material
+                pueda recorrerse con facilidad. Cada sección debe tener un
+                encabezado significativo y coherente con lo que contiene.
+              </p>
+            </div>
+          </li>
+
+          <li class="item" data-aos="zoom-in" data-aos-once="true">
+            <div class="item-head">
+              <span class="num">02</span>
+              <div class="track" aria-hidden="true">
+                <span class="draw"></span>
+              </div>
+            </div>
+            <div class="text">
+              <h2>Empieza con un resumen contextual</h2>
+              <p>
+                Incluye una breve introducción que explique de qué trata el
+                material, a quién va dirigido y qué va a encontrar la persona
+                usuaria.
+              </p>
+            </div>
+          </li>
+
+          <li class="item" data-aos="zoom-in" data-aos-once="true">
+            <div class="item-head">
+              <span class="num">03</span>
+              <div class="track" aria-hidden="true">
+                <span class="draw"></span>
+              </div>
+            </div>
+            <div class="text">
+              <h2>Escribe con lenguaje claro y directo</h2>
+              <p>
+                Prioriza frases cortas, párrafos breves y vocabulario sencillo.
+                Evita tecnicismos innecesarios y explícalos la primera vez que
+                aparezcan.
+              </p>
+            </div>
+          </li>
+
+          <li class="item" data-aos="zoom-in" data-aos-once="true">
+            <div class="item-head">
+              <span class="num">04</span>
+              <div class="track" aria-hidden="true">
+                <span class="draw"></span>
+              </div>
+            </div>
+            <div class="text">
+              <h2>Divide la información en bloques fáciles de recorrer</h2>
+              <p>
+                Usa listas para varios elementos, separa los temas complejos en
+                partes y añade un glosario cuando el contenido incluya términos
+                especializados.
+              </p>
+            </div>
+          </li>
+
+          <li class="item" data-aos="zoom-in" data-aos-once="true">
+            <div class="item-head">
+              <span class="num">05</span>
+              <div class="track" aria-hidden="true">
+                <span class="draw"></span>
+              </div>
+            </div>
+            <div class="text">
+              <h2>Cuida la tipografía y el formato</h2>
+              <p>
+                Utiliza una fuente legible, tamaño suficiente para lectura
+                cómoda y alineación a la izquierda. Evita el abuso de mayúsculas,
+                las cursivas largas y el texto justificado.
+              </p>
+            </div>
+          </li>
+
+          <li class="item" data-aos="zoom-in" data-aos-once="true">
+            <div class="item-head">
+              <span class="num">06</span>
+              <div class="track" aria-hidden="true">
+                <span class="draw"></span>
+              </div>
+            </div>
+            <div class="text">
+              <h2>Destaca solo lo importante</h2>
+              <p>
+                Usa la negrita con moderación y apóyate también en el espaciado,
+                los subtítulos y la separación visual entre bloques para mejorar
+                la lectura.
+              </p>
+            </div>
+          </li>
+
+          <li class="item" data-aos="zoom-in" data-aos-once="true">
+            <div class="item-head">
+              <span class="num">07</span>
+              <div class="track" aria-hidden="true">
+                <span class="draw"></span>
+              </div>
+            </div>
+            <div class="text">
+              <h2>No dependas solo del color</h2>
+              <p>
+                El color puede reforzar el mensaje, pero no debe ser el único
+                recurso para indicar estados, avisos o categorías. Añade texto,
+                iconos o etiquetas de apoyo.
+              </p>
+            </div>
+          </li>
+
+          <li class="item" data-aos="zoom-in" data-aos-once="true">
+            <div class="item-head">
+              <span class="num">08</span>
+              <div class="track" aria-hidden="true">
+                <span class="draw"></span>
+              </div>
+            </div>
+            <div class="text">
+              <h2>Añade texto alternativo útil a las imágenes</h2>
+              <p>
+                Describe la función o la información relevante de cada imagen.
+                En gráficos o recursos complejos, resume también la idea
+                principal que transmiten.
+              </p>
+            </div>
+          </li>
+
+          <li class="item" data-aos="zoom-in" data-aos-once="true">
+            <div class="item-head">
+              <span class="num">09</span>
+              <div class="track" aria-hidden="true">
+                <span class="draw"></span>
+              </div>
+            </div>
+            <div class="text">
+              <h2>Haz accesibles los vídeos</h2>
+              <p>
+                Incluye subtítulos cuando haya contenido hablado y añade
+                narración o audiodescripción cuando la información visual aporte
+                significado adicional.
+              </p>
+            </div>
+          </li>
+
+          <li class="item" data-aos="zoom-in" data-aos-once="true">
+            <div class="item-head">
+              <span class="num">10</span>
+              <div class="track" aria-hidden="true">
+                <span class="draw"></span>
+              </div>
+            </div>
+            <div class="text">
+              <h2>Redacta enlaces descriptivos</h2>
+              <p>
+                Usa textos que expliquen claramente el destino o la acción, por
+                ejemplo: “Descargar informe anual (PDF)”. Evita fórmulas
+                ambiguas como “haz clic aquí”.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        © Universidad Nebrija • Todos los derechos reservados
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    const items = document.querySelectorAll('.item');
+
+    items.forEach((item, index) => {
+      item.setAttribute('data-aos-delay', String(index * 120));
+      item.setAttribute('data-aos-duration', '700');
+    });
+
+    AOS.init({
+      once: true,
+      offset: 70,
+      duration: 700,
+      easing: 'ease-out-cubic'
+    });
+  </script>
+</body>
+</html>
