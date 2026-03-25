@@ -153,10 +153,23 @@ function init() {
             modalBox.classList.remove('aos-animate');
             setTimeout(() => modalBox.classList.add('aos-animate'), 10);
         });
+
+        box.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                box.click();
+            }
+        });
     });
 }
 
 closeBtn.onclick = () => modal.style.display = 'none';
+closeBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        modal.style.display = 'none';
+    }
+});
 window.onclick = (e) => { if(e.target == modal) modal.style.display = 'none'; }
 
 // Tarjetas móviles
@@ -168,6 +181,13 @@ document.querySelectorAll('.mobile-card').forEach(card => {
         modal.style.display = 'flex';
         modalBox.classList.remove('aos-animate');
         setTimeout(() => modalBox.classList.add('aos-animate'), 10);
+    });
+
+    card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            card.click();
+        }
     });
 });
 

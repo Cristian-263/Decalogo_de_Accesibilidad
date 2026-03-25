@@ -116,8 +116,11 @@ body {
   transition: transform 0.2s ease;
 }
 
-.nodo-box:hover {
+.nodo-box:hover,
+.nodo-box:focus-visible {
   transform: scale(1.05);
+  outline: 3px solid #000;
+  outline-offset: 4px;
 }
 
 .nodo-box::before {
@@ -180,6 +183,12 @@ body {
   font-weight: bold;
   color: #c2002f;
   cursor: pointer;
+}
+
+.close-btn:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 #modal-title {
@@ -263,10 +272,13 @@ body {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   }
 
-  .mobile-card:hover {
+  .mobile-card:hover,
+  .mobile-card:focus-visible {
     border-color: #c2002f;
     box-shadow: 0 4px 14px rgba(194, 0, 47, 0.18);
     transform: translateY(-2px);
+    outline: 3px solid #000;
+    outline-offset: 4px;
   }
 
   .mobile-card-icon {
