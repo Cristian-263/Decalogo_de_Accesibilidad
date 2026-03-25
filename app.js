@@ -64,6 +64,7 @@ function drawLines() {
         const box = nodo.querySelector('.nodo-box');
         const boxRect = box.getBoundingClientRect();
         let anchorX, anchorY;
+        
         if (config.anchor === 'bottom') {
             anchorX = boxRect.left + boxRect.width / 2 - diagramRect.left;
             anchorY = boxRect.bottom - diagramRect.top;
@@ -83,10 +84,12 @@ function drawLines() {
             anchorX = boxRect.right - 25 - diagramRect.left;
             anchorY = boxRect.top - diagramRect.top;
         }
+        
         const targetRad = config.targetDeg * (Math.PI / 180);
         const targetX = centerX + lineTargetRadius * Math.cos(targetRad);
         const targetY = centerY + lineTargetRadius * Math.sin(targetRad);
         let pathData = "";
+        
         if (config.anchor === 'left' || config.anchor === 'right') {
             const midX = anchorX + (targetX - anchorX) / 2;
             pathData = `M ${anchorX} ${anchorY} L ${midX} ${anchorY} L ${midX} ${targetY} L ${targetX} ${targetY}`;
@@ -94,6 +97,7 @@ function drawLines() {
             const midY = anchorY + (targetY - anchorY) / 2;
             pathData = `M ${anchorX} ${anchorY} L ${anchorX} ${midY} L ${targetX} ${midY} L ${targetX} ${targetY}`;
         }
+        
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute('d', pathData);
         path.setAttribute('fill', 'none');
@@ -101,6 +105,7 @@ function drawLines() {
         path.setAttribute('stroke-width', '1.5');
         path.setAttribute('stroke-linejoin', 'round');
         svgLines.appendChild(path);
+        
         const boxDot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         boxDot.setAttribute('cx', anchorX);
         boxDot.setAttribute('cy', anchorY);
@@ -109,6 +114,7 @@ function drawLines() {
         boxDot.setAttribute('stroke', '#000');
         boxDot.setAttribute('stroke-width', '2.5');
         svgLines.appendChild(boxDot);
+        
         const endDot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         endDot.setAttribute('cx', targetX);
         endDot.setAttribute('cy', targetY);
@@ -118,7 +124,7 @@ function drawLines() {
     });
 }
 
-// --- LÓGICA DEL POP-UP (NUEVA) ---
+// --- LÓGICA DEL POP-UP Y ACCESIBILIDAD ---
 const apartadosData = [
     { title: "1. Estructura lógica y jerárquica", content: "<ul><li>Uso de encabezados bien ordenados.</li><li>Cada sección tiene un título significativo.</li></ul>" },
     { title: "2. Resumen contextual", content: "<p>Incluye un resumen contextual de lo que versa el material.</p>" },
@@ -138,58 +144,99 @@ const modalTitle = document.getElementById('modal-title');
 const modalBody = document.getElementById('modal-body');
 const closeBtn = document.querySelector('.close-btn');
 
+// Variable global para recordar de dónde venimos
+let elementoPrevioAlModal = null;
+
+// Función reutilizable para abrir el modal de forma accesible
+function abrirModal(index) {
+    elementoPrevioAlModal = document.activeElement; // Guardamos quién abrió el modal
+    
+    modalTitle.textContent = apartadosData[index].title;
+    modalBody.innerHTML = apartadosData[index].content;
+    modal.style.display = 'flex';
+    
+    // Forzar reinicio de animación zoom-in
+    modalBox.classList.remove('aos-animate');
+    setTimeout(() => {
+        modalBox.classList.add('aos-animate');
+        // Enviamos el foco al botón de cerrar del modal
+        if (closeBtn) closeBtn.focus();
+    }, 10);
+}
+
+// Función reutilizable para cerrar el modal de forma accesible
+function cerrarModal() {
+    modal.style.display = 'none';
+    // Devolvemos el foco a la tarjeta o nodo original
+    if (elementoPrevioAlModal) {
+        elementoPrevioAlModal.focus();
+    }
+}
+
 function init() {
     drawCentralRing(); 
     setTimeout(drawLines, 100); 
-    AOS.init(); // Inicializar AOS
+    
+    // Asegurarse de que AOS existe antes de inicializarlo
+    if (typeof AOS !== 'undefined') {
+        AOS.init();
+    }
 
+    // Configuración para Nodos (Escritorio)
     document.querySelectorAll('.nodo-box').forEach((box, index) => {
-        box.addEventListener('click', () => {
-            modalTitle.textContent = apartadosData[index].title;
-            modalBody.innerHTML = apartadosData[index].content;
-            modal.style.display = 'flex';
-            
-            // Forzar reinicio de animación zoom-in
-            modalBox.classList.remove('aos-animate');
-            setTimeout(() => modalBox.classList.add('aos-animate'), 10);
-        });
+        box.addEventListener('click', () => abrirModal(index));
 
         box.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                box.click();
+                abrirModal(index);
+            }
+        });
+    });
+
+    // Configuración para Tarjetas (Móvil)
+    document.querySelectorAll('.mobile-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const index = parseInt(card.dataset.index);
+            abrirModal(index);
+        });
+
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const index = parseInt(card.dataset.index);
+                abrirModal(index);
             }
         });
     });
 }
 
-closeBtn.onclick = () => modal.style.display = 'none';
+// --- Eventos de Cierre ---
+closeBtn.addEventListener('click', cerrarModal);
+
+// Permitir cerrar con Enter/Espacio si el botón X tiene el foco
 closeBtn.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        modal.style.display = 'none';
+        cerrarModal();
     }
 });
-window.onclick = (e) => { if(e.target == modal) modal.style.display = 'none'; }
 
-// Tarjetas móviles
-document.querySelectorAll('.mobile-card').forEach(card => {
-    card.addEventListener('click', () => {
-        const index = parseInt(card.dataset.index);
-        modalTitle.textContent = apartadosData[index].title;
-        modalBody.innerHTML = apartadosData[index].content;
-        modal.style.display = 'flex';
-        modalBox.classList.remove('aos-animate');
-        setTimeout(() => modalBox.classList.add('aos-animate'), 10);
-    });
-
-    card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            card.click();
-        }
-    });
+// Cerrar al hacer clic en el fondo gris
+window.addEventListener('click', (e) => { 
+    if(e.target === modal) cerrarModal(); 
 });
 
+// NUEVO: Cerrar con la tecla Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.style.display === 'flex') {
+        cerrarModal();
+    }
+});
+
+// --- Inicialización y Redimensionamiento ---
 window.addEventListener('load', init);
-window.addEventListener('resize', () => { drawCentralRing(); drawLines(); });
+window.addEventListener('resize', () => { 
+    drawCentralRing(); 
+    drawLines(); 
+});
