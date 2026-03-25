@@ -1,293 +1,312 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto';
-    background: radial-gradient(circle, #ffffff 40%, #f4f4f4 100%);
-    color: #333;
-    overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto";
+  background: radial-gradient(circle, #ffffff 40%, #f4f4f4 100%);
+  color: #333;
+  overflow-x: hidden;
 }
 .header {
-    position: relative;
-    width: 100%;
-    height: 20px;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .main-title {
-    border-bottom: 2px solid #C2002F;
-    margin-bottom: 20px;
+  border-bottom: 2px solid #c2002f;
+  margin-bottom: 20px;
 }
 .diagram-container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    min-width: 1100px;
-    min-height: 800px;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-width: 1100px;
+  min-height: 800px;
 }
 
 .logo-container {
-    position: absolute;
-    top: 30px;
-    left: 40px;
-    z-index: 25;
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  z-index: 25;
 }
 
 .main-title {
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 22px;
-    font-weight: bold;
-    color: #000;
-    letter-spacing: 1px;
-    z-index: 25;
-    margin: 0;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  font-weight: bold;
+  color: #000;
+  letter-spacing: 1px;
+  z-index: 25;
+  margin: 0;
 }
 
 .center-hub {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 180px;
-    height: 180px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
 }
 
 .center-ring-svg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 .center-icon {
-    position: relative;
-    z-index: 2;
-    width: 220px;
-    height: 160px;
+  position: relative;
+  z-index: 2;
+  width: 220px;
+  height: 160px;
 }
 
 /* LA SOLUCIÓN DEL CÍRCULO POR ENCIMA ESTÁ AQUÍ */
 .connection-lines {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none; /* Permite hacer clic a través del SVG */
-    z-index: 20; /* 20 está por encima del 15 de las cajas */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none; /* Permite hacer clic a través del SVG */
+  z-index: 20; /* 20 está por encima del 15 de las cajas */
 }
 
 #nodes-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 15; /* Las cajas están debajo de las líneas ahora */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 15; /* Las cajas están debajo de las líneas ahora */
 }
 
 .nodo {
-    position: absolute;
-    width: 10vw;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  width: 10vw;
+  transform: translate(-50%, -50%);
 }
 
 .nodo-box {
-    position: relative;
-    background-color: white;
-    border: 4px solid #C2002F;
-    padding: 15px 10px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 13.5px;
-    height: 50px;
-    line-height: 1.3;
-    color: #000;
-    cursor: pointer; /* Nuevo: para que se vea que es clicable */
-    transition: transform 0.2s ease;
+  position: relative;
+  background-color: white;
+  border: 4px solid #c2002f;
+  padding: 15px 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 13.5px;
+  height: 50px;
+  line-height: 1.3;
+  color: #000;
+  cursor: pointer; /* Nuevo: para que se vea que es clicable */
+  transition: transform 0.2s ease;
 }
 
-.nodo-box:hover { transform: scale(1.05); }
+.nodo-box:hover {
+  transform: scale(1.05);
+}
 
 .nodo-box::before {
-    content: '';
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    width: 28px;
-    height: 28px;
-    background-color: #C2002F;
-    border-radius: 50%;
-    transform: translateX(-50%);
-    z-index: 0;
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  background-color: #c2002f;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
 }
 
 .nodo-icon {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
-    text-align: center;
-    color: #fff;
-    font-size: 13px;
-    z-index: 1;
-    pointer-events: none;
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  color: #fff;
+  font-size: 13px;
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* --- ESTILOS DEL MODAL (NUEVO) --- */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0; top: 0; width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.6);
-    justify-content: center;
-    align-items: center;
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-box {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    border: 4px solid #C2002F;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  border: 4px solid #c2002f;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
 }
 
 .close-btn {
-    position: absolute;
-    top: 10px; right: 15px;
-    font-size: 30px; font-weight: bold; color: #C2002F;
-    cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #c2002f;
+  cursor: pointer;
 }
 
-#modal-title { color: #C2002F; margin-top: 0; border-bottom: 2px solid #C2002F; padding-bottom: 10px; }
-#modal-body { line-height: 1.6; margin-top: 15px; }
+#modal-title {
+  color: #c2002f;
+  margin-top: 0;
+  border-bottom: 2px solid #c2002f;
+  padding-bottom: 10px;
+}
+#modal-body {
+  line-height: 1.6;
+  margin-top: 15px;
+}
 
 /* ===================== MÓVIL ===================== */
 #mobile-view {
-    display: none;
+  display: none;
 }
 
 @media (max-width: 768px) {
-    body {
-        overflow-x: hidden;
-        overflow-y: auto;
-        background: #f7f7f7;
-    }
+  body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #f7f7f7;
+  }
 
-    .diagram-container {
-        display: none;
-    }
+  .diagram-container {
+    display: none;
+  }
 
-    .header {
-        height: auto;
-        padding: 16px 20px;
-        flex-direction: column;
-        gap: 6px;
-        text-align: center;
-        background: #fff;
-        border-bottom: 3px solid #C2002F;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
+  .header {
+    height: auto;
+    padding: 16px 20px;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+    background: #fff;
+    border-bottom: 3px solid #c2002f;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
 
-    .logo {
-        width: 150px;
-        height: auto;
-    }
+  .logo {
+    width: 150px;
+    height: auto;
+  }
 
-    .logo-container {
-        position: static;
-        z-index: auto;
-    }
+  .logo-container {
+    position: static;
+    z-index: auto;
+  }
 
-    .main-title {
-        position: static;
-        transform: none;
-        font-size: 16px;
-        border-bottom: none;
-        margin: 0;
-    }
+  .main-title {
+    position: static;
+    transform: none;
+    font-size: 16px;
+    border-bottom: none;
+    margin: 0;
+  }
 
-    #mobile-view {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        padding: 20px 20px 20px 6px;
-        max-width: 520px;
-        margin: 0 auto;
-    }
+  #mobile-view {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 20px 20px 6px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
 
-    .mobile-card {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        background: #fff;
-        border: 2px solid #e0e0e0;
-        border-radius: 12px;
-        padding: 14px 16px;
-        cursor: pointer;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-    }
+  .mobile-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.15s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  }
 
-    .mobile-card:hover {
-        border-color: #C2002F;
-        box-shadow: 0 4px 14px rgba(194, 0, 47, 0.18);
-        transform: translateY(-2px);
-    }
+  .mobile-card:hover {
+    border-color: #c2002f;
+    box-shadow: 0 4px 14px rgba(194, 0, 47, 0.18);
+    transform: translateY(-2px);
+  }
 
-    .mobile-card-icon {
-        width: 46px;
-        height: 46px;
-        background-color: #C2002F;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        color: #fff;
-        font-size: 18px;
-    }
+  .mobile-card-icon {
+    width: 46px;
+    height: 46px;
+    background-color: #c2002f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #fff;
+    font-size: 18px;
+  }
 
-    .mobile-card-text {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        gap: 2px;
-    }
+  .mobile-card-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 2px;
+  }
 
-    .mobile-card-num {
-        font-size: 11px;
-        font-weight: 700;
-        color: #C2002F;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-    }
+  .mobile-card-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: #c2002f;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
 
-    .mobile-card-title {
-        font-size: 14px;
-        font-weight: 600;
-        color: #111;
-        line-height: 1.3;
-    }
+  .mobile-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111;
+    line-height: 1.3;
+  }
 
-    .mobile-card-arrow {
-        color: #C2002F;
-        font-size: 14px;
-        flex-shrink: 0;
-    }
+  .mobile-card-arrow {
+    color: #c2002f;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
 }
