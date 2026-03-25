@@ -4,32 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Estrategia de Accesibilidad Universal - Nebrija</title>
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="header">
-        <div class="logo-container">
+
+<div class="diagram-container" id="diagram">
+
+    <div class="logo-container">
         <img src="imagenes/LogoNebrija.png" alt="Logo de la Universidad Nebrija" class="logo" width="200" height="70">       
     </div>
 
     <h1 class="main-title">ESTRATEGIA DE ACCESIBILIDAD UNIVERSAL</h1>
 
-    </div>
-
-<div class="diagram-container" id="diagram">
-
-    
     <div class="center-hub" id="center">
       <svg id="svg-center-ring" class="center-ring-svg" viewBox="0 0 200 200"></svg>
-
       <img src="imagenes/Icono_Accesibilidad.png" alt="Icono de Accesibilidad" class="center-icon ">
     </div>
 
-    <!-- El lienzo de las líneas -->
     <svg id="svg-lines" class="connection-lines"></svg>
 
-    <!-- TU NUEVO CONTENEDOR HTML -->
     <div id="nodes-container">
         <div class="nodo" style="--angle: 0deg;"><div class="nodo-box">1. Estructura lógica y jerárquica</div></div>
         <div class="nodo" style="--angle: 36deg;"><div class="nodo-box">2. Resumen contextual</div></div>
@@ -45,6 +41,15 @@
 
 </div>
 
+<div id="modal" class="modal">
+    <div class="modal-box" data-aos="zoom-in" data-aos-duration="350">
+        <span class="close-btn">&times;</span>
+        <h2 id="modal-title">Título</h2>
+        <div id="modal-body">Contenido...</div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
