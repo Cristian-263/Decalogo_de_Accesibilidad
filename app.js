@@ -7,16 +7,16 @@ const lineTargetRadius = 95;
 
 // Mapeo SIMÉTRICO absoluto: Nodos 6 y 7 ahora tienen anclajes 'top-left' y 'top-right'
 const nodeConfig = {
-    0:   { left: 44, top: 16, anchor: 'bottom',    targetDeg: -108 },
-    36:  { left: 56, top: 16, anchor: 'bottom',    targetDeg: -72 }, 
-    72:  { left: 65, top: 30, anchor: 'left',      targetDeg: -36 }, 
+    0:   { left: 44, top: 20, anchor: 'bottom',    targetDeg: -108 },
+    36:  { left: 56, top: 20, anchor: 'bottom',    targetDeg: -72 }, 
+    72:  { left: 65, top: 35, anchor: 'left',      targetDeg: -36 }, 
     108: { left: 70, top: 50, anchor: 'left',      targetDeg: 0 },    
-    144: { left: 65, top: 70, anchor: 'left',      targetDeg: 36 },   
-    180: { left: 56, top: 84, anchor: 'top-left',  targetDeg: 72 },   // 6. Uso adecuado (Esquina izq)
-    216: { left: 44, top: 84, anchor: 'top-right', targetDeg: 108 },  // 7. Texto alternativo (Esquina der)
-    252: { left: 35, top: 70, anchor: 'right',     targetDeg: 144 },  
+    144: { left: 65, top: 65, anchor: 'left',      targetDeg: 36 },   
+    180: { left: 56, top: 80, anchor: 'top-left',  targetDeg: 72 },   // 6. Uso adecuado (Esquina izq)
+    216: { left: 44, top: 80, anchor: 'top-right', targetDeg: 108 },  // 7. Texto alternativo (Esquina der)
+    252: { left: 35, top: 65, anchor: 'right',     targetDeg: 144 },  
     288: { left: 30, top: 50, anchor: 'right',     targetDeg: 180 },  
-    324: { left: 35, top: 30, anchor: 'right',     targetDeg: 216 }   
+    324: { left: 35, top: 35, anchor: 'right',     targetDeg: 216 }   
 };
 
 // 1. DIBUJAR LOS 10 QUESITOS CENTRALES
