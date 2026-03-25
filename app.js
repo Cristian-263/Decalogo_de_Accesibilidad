@@ -127,9 +127,9 @@ const apartadosData = [
     { title: "5. Tipografía y formato", content: "<ul><li>Tamaño mínimo 12–14 pt.</li><li>Evita mayúsculas prolongadas.</li><li>No justifiques el texto a ambos lados.</li></ul>" },
     { title: "6. Uso adecuado del color", content: "<p>No uses solo el color para transmitir información importante.</p>" },
     { title: "7. Texto alternativo en imágenes", content: "<ul><li>Proporciona ALT significativo.</li><li>Explica el propósito, no la estética.</li></ul>" },
-    { title: "8. Subtítulos en los videos", content: "<p>Incluir subtítulos en todos los materiales audiovisuales.</p>" },
-    { title: "9. Narración en los videos", content: "<p>Describe de manera auditiva lo que aparece en la imagen o vídeo.</p>" },
-    { title: "10. Enlaces accesibles", content: "<p>Usa texto descriptivo como 'Descargar informe (PDF)' en lugar de 'Haz clic aquí'.</p>" }
+    { title: "8. Subtítulos en los videos", content: "<ul><li>Incluir subtítulos en todos los materiales audiovisuales.</li></ul>" },
+    { title: "9. Narración en los videos", content: "<ul><li>Describe de manera auditiva lo que aparece en la imagen o vídeo.</li></ul>" },
+    { title: "10. Enlaces accesibles", content: "<ul><li>Usa texto descriptivo como 'Descargar informe (PDF)' en lugar de 'Haz clic aquí'.</li></ul>" }
 ];
 
 const modal = document.getElementById('modal');

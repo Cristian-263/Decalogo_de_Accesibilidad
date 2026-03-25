@@ -128,6 +128,22 @@ body {
     background-color: #C2002F;
     border-radius: 50%;
     transform: translateX(-50%);
+    z-index: 0;
+}
+
+.nodo-icon {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    color: #fff;
+    font-size: 13px;
+    z-index: 1;
+    pointer-events: none;
 }
 
 /* --- ESTILOS DEL MODAL (NUEVO) --- */
