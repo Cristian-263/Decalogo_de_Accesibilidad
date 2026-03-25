@@ -5,20 +5,21 @@ const center = document.getElementById('center');
 
 const lineTargetRadius = 95; 
 
-// Mapeo SIMÉTRICO absoluto
+// Mapeo SIMÉTRICO absoluto: Nodos 6 y 7 ahora tienen anclajes 'top-left' y 'top-right'
 const nodeConfig = {
-    0:   { left: 44, top: 16, anchor: 'bottom',    targetDeg: -108 },
-    36:  { left: 56, top: 16, anchor: 'bottom',    targetDeg: -72 }, 
-    72:  { left: 65, top: 30, anchor: 'left',      targetDeg: -36 }, 
+    0:   { left: 44, top: 20, anchor: 'bottom',    targetDeg: -108 },
+    36:  { left: 56, top: 20, anchor: 'bottom',    targetDeg: -72 }, 
+    72:  { left: 65, top: 35, anchor: 'left',      targetDeg: -36 }, 
     108: { left: 70, top: 50, anchor: 'left',      targetDeg: 0 },    
-    144: { left: 65, top: 70, anchor: 'left',      targetDeg: 36 },   
-    180: { left: 56, top: 84, anchor: 'top-left',  targetDeg: 72 },   
-    216: { left: 44, top: 84, anchor: 'top-right', targetDeg: 108 },  
-    252: { left: 35, top: 70, anchor: 'right',     targetDeg: 144 },  
+    144: { left: 65, top: 65, anchor: 'left',      targetDeg: 36 },   
+    180: { left: 56, top: 80, anchor: 'top-left',  targetDeg: 72 },   // 6. Uso adecuado (Esquina izq)
+    216: { left: 44, top: 80, anchor: 'top-right', targetDeg: 108 },  // 7. Texto alternativo (Esquina der)
+    252: { left: 35, top: 65, anchor: 'right',     targetDeg: 144 },  
     288: { left: 30, top: 50, anchor: 'right',     targetDeg: 180 },  
-    324: { left: 35, top: 30, anchor: 'right',     targetDeg: 216 }   
+    324: { left: 35, top: 35, anchor: 'right',     targetDeg: 216 }   
 };
 
+// 1. DIBUJAR LOS 10 QUESITOS CENTRALES
 function drawCentralRing() {
     svgCenterRing.innerHTML = ''; 
     const numSegments = 10;
@@ -53,6 +54,7 @@ function drawCentralRing() {
     }
 }
 
+// 2. DIBUJAR LÍNEAS ORTOGONALES Y CIRCULITOS
 function drawLines() {
     svgLines.innerHTML = '';
     const nodos = document.querySelectorAll('.nodo');
@@ -67,12 +69,14 @@ function drawLines() {
         const angle = parseInt(angleStr);
         const config = nodeConfig[angle];
         
+        // Asignar posición de la caja
         nodo.style.left = `${config.left}%`;
         nodo.style.top = `${config.top}%`;
 
         const box = nodo.querySelector('.nodo-box');
         const boxRect = box.getBoundingClientRect();
         
+        // Calcular de dónde sale la línea según la configuración
         let anchorX, anchorY;
         if (config.anchor === 'bottom') {
             anchorX = boxRect.left + boxRect.width / 2 - diagramRect.left;
@@ -87,26 +91,32 @@ function drawLines() {
             anchorX = boxRect.right - diagramRect.left;
             anchorY = boxRect.top + boxRect.height / 2 - diagramRect.top;
         } else if (config.anchor === 'top-left') {
+            // Ajustado 25px desde la izquierda para coincidir con el CSS
             anchorX = boxRect.left + 25 - diagramRect.left;
             anchorY = boxRect.top - diagramRect.top;
         } else if (config.anchor === 'top-right') {
+            // Ajustado 25px desde la derecha para coincidir con el CSS
             anchorX = boxRect.right - 25 - diagramRect.left;
             anchorY = boxRect.top - diagramRect.top;
         }
 
+        // Hacia dónde apunta en el centro
         const targetRad = config.targetDeg * (Math.PI / 180);
         const targetX = centerX + lineTargetRadius * Math.cos(targetRad);
         const targetY = centerY + lineTargetRadius * Math.sin(targetRad);
 
+        // Calcular codo perfectamente simétrico
         let pathData = "";
         if (config.anchor === 'left' || config.anchor === 'right') {
             const midX = anchorX + (targetX - anchorX) / 2;
             pathData = `M ${anchorX} ${anchorY} L ${midX} ${anchorY} L ${midX} ${targetY} L ${targetX} ${targetY}`;
         } else {
+            // Aplica para 'top', 'bottom', 'top-left' y 'top-right'
             const midY = anchorY + (targetY - anchorY) / 2;
             pathData = `M ${anchorX} ${anchorY} L ${anchorX} ${midY} L ${targetX} ${midY} L ${targetX} ${targetY}`;
         }
 
+        // 1. Dibujar Línea
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute('d', pathData);
         path.setAttribute('fill', 'none');
@@ -115,6 +125,7 @@ function drawLines() {
         path.setAttribute('stroke-linejoin', 'round');
         svgLines.appendChild(path);
 
+        // 2. Dibujar Círculo de la caja (Gris con borde negro)
         const boxDot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         boxDot.setAttribute('cx', anchorX);
         boxDot.setAttribute('cy', anchorY);
@@ -124,6 +135,7 @@ function drawLines() {
         boxDot.setAttribute('stroke-width', '2.5');
         svgLines.appendChild(boxDot);
 
+        // 3. Dibujar Punto negro final (En el centro)
         const endDot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         endDot.setAttribute('cx', targetX);
         endDot.setAttribute('cy', targetY);
@@ -136,92 +148,7 @@ function drawLines() {
 function init() {
     drawCentralRing(); 
     setTimeout(drawLines, 100); 
-    AOS.init(); // Inicializar librería AOS
 }
 
 window.addEventListener('load', init);
 window.addEventListener('resize', init);
-
-
-// --- LÓGICA DEL POP-UP Y ANIMACIÓN AOS ---
-
-const apartadosData = [
-    {
-        title: "1. Estructura lógica y jerárquica",
-        content: "<ul><li>Uso de encabezados bien ordenados.</li><li>Cada sección tiene un título significativo.</li></ul>"
-    },
-    {
-        title: "2. Resumen contextual",
-        content: "<p>Incluye un resumen contextual de lo que versa el material.</p>"
-    },
-    {
-        title: "3. Lenguaje claro y comprensible",
-        content: "<ul><li>Frases cortas y párrafos breves.</li><li>Utiliza un lenguaje comprensible, claro y sencillo.</li><li>Explica los tecnicismos la primera vez que los uses.</li></ul>"
-    },
-    {
-        title: "4. Listas y organización del contenido",
-        content: "<ul><li>Utiliza listas para elementos múltiples.</li><li>Divide la información compleja en bloques.</li><li>Usa un glosario de términos.</li></ul>"
-    },
-    {
-        title: "5. Tipografía y formato",
-        content: "<ul><li>Usa tamaño mínimo 12–14 pt.</li><li>Evita mayúsculas prolongadas y cursivas largas (dificultan la lectura).</li><li>Usa negrita para resaltar, pero con moderación.</li><li>No justifiques el texto a ambos lados (crea ríos de texto).</li></ul>"
-    },
-    {
-        title: "6. Uso adecuado del color",
-        content: "<ul><li>No uses solo color para transmitir información (No depender solo del color y el estilo para resaltar información).</li></ul>"
-    },
-    {
-        title: "7. Texto alternativo en imágenes",
-        content: "<ul><li>Proporciona un texto alternativo (ALT) significativo.</li><li>Explica el propósito, no la estética.</li><li>En gráficos complejos, describe la información clave.</li></ul>"
-    },
-    {
-        title: "8. Subtítulos en los videos",
-        content: "<p>Incluir subtítulos en los videos.</p>"
-    },
-    {
-        title: "9. Narración en los videos",
-        content: "<ul><li>Describe de manera auditiva lo que aparece en la imagen/diapositiva/vídeo.</li></ul>"
-    },
-    {
-        title: "10. Enlaces accesibles",
-        content: "<ul><li>Usa texto descriptivo: “Descargar informe anual (PDF)”.</li><li>Evita “haz clic aquí”, “más info”, “ver”.</li></ul>"
-    }
-];
-
-const modal = document.getElementById('modal');
-const modalTitle = document.getElementById('modal-title');
-const modalBody = document.getElementById('modal-body');
-const closeBtn = document.querySelector('.close-btn');
-const modalBox = document.querySelector('.modal-box');
-
-const nodosElements = document.querySelectorAll('.nodo');
-nodosElements.forEach((nodo, index) => {
-    const box = nodo.querySelector('.nodo-box');
-    box.addEventListener('click', () => {
-        // Cargar el contenido
-        modalTitle.textContent = apartadosData[index].title;
-        modalBody.innerHTML = apartadosData[index].content;
-        
-        // Mostrar la ventana emergente
-        modal.style.display = 'flex';
-
-        // Truco para que AOS reinicie la animación "zoom-in" cada vez que se hace clic
-        modalBox.classList.remove('aos-animate');
-        setTimeout(() => {
-            modalBox.classList.add('aos-animate');
-        }, 10);
-    });
-});
-
-// Cerrar y limpiar la animación
-closeBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-    modalBox.classList.remove('aos-animate'); 
-});
-
-window.addEventListener('click', (event) => {
-    if (event.target === modal) {
-        modal.style.display = 'none';
-        modalBox.classList.remove('aos-animate'); 
-    }
-});
