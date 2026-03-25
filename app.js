@@ -159,5 +159,17 @@ function init() {
 closeBtn.onclick = () => modal.style.display = 'none';
 window.onclick = (e) => { if(e.target == modal) modal.style.display = 'none'; }
 
+// Tarjetas móviles
+document.querySelectorAll('.mobile-card').forEach(card => {
+    card.addEventListener('click', () => {
+        const index = parseInt(card.dataset.index);
+        modalTitle.textContent = apartadosData[index].title;
+        modalBody.innerHTML = apartadosData[index].content;
+        modal.style.display = 'flex';
+        modalBox.classList.remove('aos-animate');
+        setTimeout(() => modalBox.classList.add('aos-animate'), 10);
+    });
+});
+
 window.addEventListener('load', init);
 window.addEventListener('resize', () => { drawCentralRing(); drawLines(); });
